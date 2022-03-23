@@ -7,7 +7,7 @@ use yii\grid\GridView;
 $this->title = 'My Yii Application';
 ?>
 <!-- 引入 layui.css -->
-<link rel="stylesheet" href="assets/layui-v2.6.8/layui/css/layui.css">
+<link rel="stylesheet" href="js/layui-v2.6.8/layui/css/layui.css">
 <style>
 
 </style>
