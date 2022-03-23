@@ -37,9 +37,9 @@ $this->title = 'My Yii Application';
 </div>
 
 <!-- 引入 jquery -->
-<script src="assets/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <!-- 引入 layui.js -->
-<script src="assets/layui-v2.6.8/layui/layui.js"></script>
+<script src="js/layui-v2.6.8/layui/layui.js"></script>
 <script>
     layui.use(['layer', 'form'], function(){
         var layer = layui.layer, form = layui.form;
