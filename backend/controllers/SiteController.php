@@ -85,7 +85,7 @@ class SiteController extends Controller
         if(yii::$app->request->isPost){
             $ids = Yii::$app->request->post('ids');
             $ids = explode(',',$ids);
-            $fields = Yii::$app->request->post('fields');
+            $fields = Yii::$app->request->post('fields',[]);
             array_unshift($fields,'id');//id必选
 
             $data = Supplier::find()->where(['id'=>$ids])->select($fields)->asArray()->all();
