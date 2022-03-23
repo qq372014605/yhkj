@@ -15,6 +15,8 @@ use common\models\Supplier;
  */
 class SiteController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     /**
      * {@inheritdoc}
      */
@@ -29,7 +31,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'export'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -73,6 +75,40 @@ class SiteController extends Controller
             't_status'      =>  isset($params['t_status']) ? $params['t_status'] : '',
             'dataProvider'  =>  $dataProvider
         ]);
+    }
+
+    /**
+     * 导出选择的数据
+     */
+    public function actionExport()
+    {
+        if(yii::$app->request->isPost){
+            $ids = Yii::$app->request->post('ids');
+            $ids = explode(',',$ids);
+            $fields = Yii::$app->request->post('fields');
+            array_unshift($fields,'id');//id必选
+
+            $data = Supplier::find()->where(['id'=>$ids])->select($fields)->asArray()->all();
+
+            //添加表格标题
+            $title = [
+                'id'        =>  'ID',
+                'name'      =>  '名称',
+                'code'      =>  '代码',
+                't_status'  =>  '状态'
+            ];
+            $tmp = [];
+            foreach ($fields as $field){
+                $tmp[$field] = $title[$field];
+            }
+            array_unshift($data,$tmp);
+            Supplier::exportCsv($data);
+        }else{
+            $ids = Yii::$app->request->get('ids');
+            return $this->render('export',[
+                'ids'   =>  $ids
+            ]);
+        }
     }
 
     /**

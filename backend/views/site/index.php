@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Html;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
@@ -8,14 +8,6 @@ $this->title = 'My Yii Application';
 ?>
 <!-- 引入 layui.css -->
 <link rel="stylesheet" href="assets/layui-v2.6.8/layui/css/layui.css">
-<style>
-    .check-label{
-        margin-bottom: 0;
-    }
-    .check-label input{
-        margin-right: 10px;
-    }
-</style>
 
 <div class="site-index">
     <form class="layui-form" autocomplete="off" action="">
@@ -54,21 +46,16 @@ $this->title = 'My Yii Application';
         </div>
     </form>
     <div class="data-table">
+        <?= Html::a('导出全部结果', "javascript:void(0);", ['class' => 'btn btn-success gridview']) ?>
         <?php
         try {
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
+                'options' => ['class' => 'grid-view','style'=>'overflow:auto', 'id' => 'grid'],
                 'columns' => [
                     [
-                        'attribute' => '',
-                        'format' => ['raw'],
-                        'label' => "全/反选",
-                        'headerOptions' => ['width' => '50','style'=>'cursor:pointer'],
-                        'contentOptions' => ['align'=>'center'],
-                        'header'=>"<label class='check-label' title='全选'><input id='all-check' type='checkbox' autocomplete='off' />全选</label>",
-                        'value' => function ($data) {
-                            return "<input type='checkbox' class='i-checks' value={$data['id']} autocomplete='off' />";
-                        },
+                        'class' => 'yii\grid\CheckboxColumn',
+                        'name' => 'id',
                     ],
                     'id',
                     'name',
@@ -84,6 +71,17 @@ $this->title = 'My Yii Application';
                     ]
                 ]
             ]);
+
+            $this->registerJs('
+            $(".gridview").on("click", function () {
+                //注意这里的$("#grid")，要跟我们第一步设定的options id一致
+                var ids = $("#grid").yiiGridView("getSelectedRows");
+                if(ids.length==0){
+                    alert("请选择需要导出的数据");
+                }
+                location.href = "index.php?r=site/export&ids="+ids.join(",");
+            });
+            ');
         } catch (\Exception $e) {
             // todo
         }
@@ -98,15 +96,6 @@ $this->title = 'My Yii Application';
 <script>
     layui.use(['layer', 'form'], function(){
         var layer = layui.layer, form = layui.form;
-
-        //全选/反选
-        $('#all-check').click(function(){
-            var isCheckd = $(this).is(':checked');
-            var checkList = $(".data-table .i-checks");
-            $(checkList).each(function(){
-                $(this).prop('checked',isCheckd);
-            });
-        });
 
         //表单提交
         form.on('submit(formsub)', function(data){

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2022-03-23 14:22:34
+Date: 2022-03-23 16:25:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,13 +46,23 @@ CREATE TABLE `supplier` (
   `deleted_at` bigint(20) DEFAULT '0' COMMENT '删除时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of supplier
 -- ----------------------------
 INSERT INTO `supplier` VALUES ('1', '张三', '001', 'ok', '1648015626', '1648015626', '0');
 INSERT INTO `supplier` VALUES ('2', '李四', '002', 'hold', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('3', '诸葛', '003', 'ok', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('4', '上官', '004', 'hold', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('5', '东方', '005', 'hold', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('6', '赵钱孙', '006', 'ok', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('7', '赵云', '007', 'ok', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('8', '张飞', '008', 'ok', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('9', '关羽', '009', 'ok', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('10', '刘备', '010', 'ok', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('11', '曹操', '011', 'ok', '1648015626', '1648015626', '0');
+INSERT INTO `supplier` VALUES ('12', '周瑜', '012', 'ok', '1648015626', '1648015626', '0');
 
 -- ----------------------------
 -- Table structure for `user`
