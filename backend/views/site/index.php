@@ -78,6 +78,7 @@ $this->title = 'My Yii Application';
                 var ids = $("#grid").yiiGridView("getSelectedRows");
                 if(ids.length==0){
                     alert("请选择需要导出的数据");
+                    return false;
                 }
                 location.href = "index.php?r=site/export&ids="+ids.join(",");
             });

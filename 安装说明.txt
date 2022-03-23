@@ -2,5 +2,5 @@
 2.本地新建数据库，将项目目录下面的yhkj.sql导入
 3.修改配置文件common/config/main-local.php里面的db配置项
 4.增加域名http://www.yhkj.com，修改本地hosts文件让域名指向本地
-5.修改apache/nginx配置，http://www.yhkj.com指向到backend目录
+5.修改apache/nginx配置，http://www.yhkj.com指向到backend/web/目录
 6.访问http://www.yhkj.com，输入账号admin，密码123456登录
