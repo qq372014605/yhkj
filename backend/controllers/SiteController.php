@@ -8,6 +8,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use common\models\Supplier;
 
 /**
  * Site controller
@@ -62,7 +63,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $params = Yii::$app->request->get();
+        $supplierModel = new Supplier();
+        $dataProvider = $supplierModel->search($params);
+        return $this->render('index',[
+            'id'            =>  isset($params['id']) ? $params['id'] : '',
+            'name'          =>  isset($params['name']) ? $params['name'] : '',
+            'code'          =>  isset($params['code']) ? $params['code'] : '',
+            't_status'      =>  isset($params['t_status']) ? $params['t_status'] : '',
+            'dataProvider'  =>  $dataProvider
+        ]);
     }
 
     /**
